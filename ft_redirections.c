@@ -46,29 +46,6 @@ int				ft_check_redirections(char **cmd, t_cmds **node)
 	return (1);
 }
 
-void		ft_execute(t_cmds *cmd)
-{
-	pid_t	pid;
-	int 	fdin;
-	int 	tmpin;
-	int 	tmpout;
-	int 	fildes[2];
-
-	tmpin = dup(0);
-	tmpout = dup(1);
-	if (cmd->r_in)
-	{
-		fdin = open(cmd->file, O_RDONLY);
-		pipe(fildes);
-		if (fork())
-		{
-			dup2(fildes[1], 1);
-			close(fildes[1]);
-			execve("/bin/ls", cmd->cmd, NULL);
-		}
-	}
-
-}
 int main()
 {
 	char *file;
@@ -78,9 +55,10 @@ int main()
 	
 	ft_add_cmds(&hd, ft_new_cmd(cmd));
 	ft_add_cmds(&hd, ft_new_cmd(cmd2));
+	ft_execute_cmd(hd);
 	while (hd)
 	{
-		printf("cmd: %s, file: %s, file2: %s,append: %d, input: %d, output: %d\n", hd->cmd, 
+		printf("cmd: %s, file: %s, file2: %s,append: %d, input: %d, output: %d\n", hd->cmd[0], 
 			hd->file, hd->file2, hd->append, hd->r_in, hd->r_out);
 		hd = hd->next;
 	}

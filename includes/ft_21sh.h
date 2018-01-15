@@ -6,6 +6,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 # include "../libft/libft.h"
 
 typedef struct	s_cmds
@@ -30,5 +32,6 @@ typedef struct	s_red
 int				ft_check_redirections(char **cmd, t_cmds **node);
 t_cmds			*ft_new_cmd(char *cmd);
 int				ft_add_cmds(t_cmds **hd, t_cmds *new_node);
+int             ft_execute_cmd(t_cmds *cmd);
 
 #endif
